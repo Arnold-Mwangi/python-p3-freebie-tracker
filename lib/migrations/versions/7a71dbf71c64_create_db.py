@@ -17,7 +17,15 @@ depends_on = None
 
 
 def upgrade() -> None:
-    pass
+    op.create_table(
+        'freebies',
+        sa.Column('id', sa.Integer(), nullable=False),
+        sa.Column('item_name', sa.String(length=255), nullable=True),
+        sa.Column('value', sa.Integer(), nullable=True),
+        sa.Column('dev_id', sa.Integer(), sa.ForeignKey('dev.id'), nullable=True),
+        sa.Column('company_id', sa.Integer(), sa.ForeignKey('company.id'), nullable=True),
+        sa.PrimaryKeyConstraint('id')
+    )
 
 
 def downgrade() -> None:
